@@ -9,7 +9,12 @@ let config = {
     fps: {forceSetTimeOut: true, target: 60},
     width: 800,
     height: 600,
-    scene: [Load, RoomOne, RoomTwo, RoomThree, RoomFour, RoomFive, RoomSix]
+    scene: [Load, RoomOne]
+
 }
+
+var cursors;
+const SCALE = 2.0;
+var my = {sprite: {}, text: {}, vfx: {}};
 
 const game = new Phaser.Game(config);

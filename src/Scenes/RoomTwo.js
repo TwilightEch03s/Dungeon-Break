@@ -1,6 +1,6 @@
 class RoomTwo extends Phaser.Scene {
     constructor() {
-        super("RoomTwoScene");
+        super("roomTwoScene");
     }
 
     init() {
