@@ -5,7 +5,6 @@ class RoomSix extends Phaser.Scene {
 
     init() {
         // Variables and Settings
-
     }
 
     preload() {

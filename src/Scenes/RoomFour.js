@@ -5,7 +5,6 @@ class RoomFour extends Phaser.Scene {
 
     init() {
         // Variables and Settings
-
     }
 
     preload() {

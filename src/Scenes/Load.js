@@ -1,14 +1,14 @@
 class Load extends Phaser.Scene {
     constructor() {
-        super("loadScene");
+        super("LoadScene");
     }
 
     preload() {
-        this.load.setPath("./assets/");
+
     }
 
-    create() {
 
+    create() {
     }
 
     update() {
