@@ -15,8 +15,6 @@ class RoomOne extends Phaser.Scene {
     create() {        
         // Load tilemap
         this.map = this.make.tilemap({ key: "map" });
-
-        // This name must match the one used in Tiled for the tileset
         const tileset = this.map.addTilesetImage("tilemap_pack", "tilemap_tiles");
 
         // Add layers
@@ -24,7 +22,7 @@ class RoomOne extends Phaser.Scene {
         this.wall = this.map.createLayer("Wall", tileset, 0, 0);
         this.decorations = this.map.createLayer("Decorations", tileset, 0, 0);
 
-        // Enable collision on wall layer (based on tiles marked as collidable in Tiled)
+        // Enable collision on wall layer
         this.wall.setCollisionByProperty({ collides: true });
 
         // Input Setup
@@ -33,15 +31,14 @@ class RoomOne extends Phaser.Scene {
         this.sKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
         this.dKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
 
-        // Add player sprite with physics
+        // Add player sprite
         my.sprite.player = this.physics.add.sprite(400, 300, "platformer_characters", "tile_0020.png");
         my.sprite.player.setScale(1);
         my.sprite.player.body.setCollideWorldBounds(true);
 
         // Collide player with wall layer
         this.physics.add.collider(my.sprite.player, this.wall);
-
-        // Camera follow (optional)
+        this.cameras.main.setZoom(this.SCALE);
         this.cameras.main.startFollow(my.sprite.player);
     }
 
@@ -49,9 +46,11 @@ class RoomOne extends Phaser.Scene {
     update() {
         const player = my.sprite.player;
 
+        // Set velocity
         let velocityX = 0;
         let velocityY = 0;
 
+        // Movement
         if (this.wKey.isDown) {
             velocityY = -1;
         } else if (this.sKey.isDown) {
@@ -61,8 +60,6 @@ class RoomOne extends Phaser.Scene {
         } else if (this.dKey.isDown) {
             velocityX = 1;
         }
-
-        // Normalize to prevent faster diagonal movement
         const vec = new Phaser.Math.Vector2(velocityX, velocityY).normalize();
         player.setVelocity(vec.x * this.ACCELERATION, vec.y * this.ACCELERATION);
     }
