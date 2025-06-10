@@ -10,7 +10,7 @@ class Load extends Phaser.Scene {
         this.load.image("tilemap_tiles", "tilemap_packed.png");
         this.load.tilemapTiledJSON("map", "floorOne.json");
     }
-
+    
 
     create() {
         this.scene.start("roomOneScene");
