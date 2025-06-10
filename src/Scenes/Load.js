@@ -9,12 +9,42 @@ class Load extends Phaser.Scene {
 
         this.load.image("tilemap_tiles", "tilemap_packed.png");
         this.load.tilemapTiledJSON("map", "floorOne.json");
+
+        // Audio
+        this.load.audio("walking", "walking_audio.mp3")
+
     }
 
 
     create() {
         this.scene.start("roomOneScene");
 
+        this.anims.create({
+            key: 'walk',
+            frames: this.anims.generateFrameNames('platformer_characters', {
+                prefix: "tile_",
+                start: 6,
+                end: 7,
+                suffix: ".png",
+                zeroPad: 4
+            }),
+            frameRate: 15,
+            repeat: -1
+        });
+
+        this.anims.create({
+            key: 'idle',
+            defaultTextureKey: "platformer_characters",
+            frames: [
+                { frame: "tile_0006.png" }
+            ],
+            repeat: -1
+        });
+
+        my.sfx.walking = this.sound.add("walking", {
+            loop: true,
+            volume: 0.5
+        });
 
     }
 

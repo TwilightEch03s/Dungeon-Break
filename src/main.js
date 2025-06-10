@@ -22,6 +22,6 @@ let config = {
 
 }
 
-var my = {sprite: {}, text: {}, vfx: {}};
+var my = {sprite: {}, text: {}, vfx: {}, sfx: {}};
 
 const game = new Phaser.Game(config);
