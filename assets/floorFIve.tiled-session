@@ -3,10 +3,14 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "",
+    "activeFile": "floorFive.tmx",
     "expandedProjectPaths": [
+        "."
     ],
     "fileStates": {
+        "": {
+            "scaleInDock": 1
+        },
         "#tilemap_packed": {
             "scaleInDock": 1
         },
@@ -14,8 +18,8 @@
             "scale": 1,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 486.5,
-                "y": 331.5
+                "x": 400.5,
+                "y": 399.5
             }
         },
         "floorFive.tmj#tilemap_packed": {
@@ -26,7 +30,7 @@
             "selectedLayer": 0,
             "viewCenter": {
                 "x": 399.80232270817896,
-                "y": 399.80232270817896
+                "y": 521.3738571781568
             }
         },
         "floorFive.tmx#tilemap_packed": {
@@ -37,7 +41,7 @@
             "selectedLayer": 1,
             "viewCenter": {
                 "x": 399.80232270817896,
-                "y": 399.80232270817896
+                "y": 399.8023227081789
             }
         },
         "floorSIx.tmx#tilemap2_packed": {
@@ -53,8 +57,14 @@
     "map.tileWidth": 16,
     "map.width": 50,
     "openFiles": [
+        "floorFive.tmj",
+        "floorSIx.tmx",
+        "floorFive.tmx"
     ],
     "project": "floorFIve.tiled-project",
     "recentFiles": [
+        "floorFive.tmj",
+        "floorSIx.tmx",
+        "floorFive.tmx"
     ]
 }
