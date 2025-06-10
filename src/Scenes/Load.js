@@ -20,12 +20,24 @@ class Load extends Phaser.Scene {
         this.load.audio("doorOpen", "minecraft-door-open.mp3")
         this.load.audio("doorClose", "minecraft-door-close.mp3")
 
+        this.load.audio("music", "cave.mp3")
+
+
     }
     
 
     create() {
-        //this.scene.start("roomOneScene");
-        this.scene.start("roomTwoScene");
+
+        if (!this.sound.get('music')) {
+        my.sfx.music = this.sound.add("music", {
+            loop: true,
+            volume: 0.2
+        });
+
+        my.sfx.music.play();
+    }
+        this.scene.start("roomOneScene");
+        //this.scene.start("roomTwoScene");
         //this.scene.start("roomThreeScene");
         //this.scene.start("roomFourScene");
         //this.scene.start("roomFivecene");
@@ -58,7 +70,6 @@ class Load extends Phaser.Scene {
             loop: true,
             volume: 0.5
         });
-
     }
 
     update() {

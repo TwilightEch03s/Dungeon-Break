@@ -101,7 +101,6 @@ class RoomOne extends Phaser.Scene {
     handleDoorCollision() {
         if (!this.transitioning) {
             this.transitioning = true;
-            this.sound.stopAll();
             this.cameras.main.fadeOut(500, 0, 0, 0); 
             this.cameras.main.once('camerafadeoutcomplete', () => {
                 this.scene.start("roomTwoScene");

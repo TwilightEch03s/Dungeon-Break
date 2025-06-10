@@ -21,7 +21,7 @@ class RoomTwo extends Phaser.Scene {
         this.map = this.make.tilemap({ key: "map2" });
         const tileset1 = this.map.addTilesetImage("tilemap_packed", "tilemap_tiles");
         const tileset2 = this.map.addTilesetImage("tilemap2_packed", "tilemap_tiles2");
-        const tileset3 = this.map.addTilesetImage("tilemap3_packed", "tilemap_tiles3");
+        const tileset3 = this.map.addTilesetImage("tilemap3_packed ", "tilemap_tiles3");
         const tilesets = [tileset1, tileset2, tileset3];
         this.animatedTiles.init(this.map);
 
@@ -31,6 +31,7 @@ class RoomTwo extends Phaser.Scene {
         this.decorations = this.map.createLayer("Decorations", tilesets, 0, 0);
         this.doors1 = this.map.createLayer("Doors1", tilesets, 0, 0);
         this.doors2 = this.map.createLayer("Doors2", tilesets, 0, 0);
+        this.keys = this.map.createLayer("Keys", tilesets, 0, 0);
 
 
         // Enable collision on wall layer
