@@ -8,17 +8,29 @@ class Load extends Phaser.Scene {
         this.load.atlas("platformer_characters", "tilemap-characters-packed.png", "tilemap-characters-packed.json");
 
         this.load.image("tilemap_tiles", "tilemap_packed.png");
+        this.load.image("tilemap_tiles2", "tilemap2_packed.png");
+        this.load.image("tilemap_tiles3", "tilemap3_packed.png");
+
+        
         this.load.tilemapTiledJSON("map", "floorOne.json");
         this.load.tilemapTiledJSON("map2", "floorTwo.json");
 
         // Audio
         this.load.audio("walking", "walking_audio.mp3")
+        this.load.audio("doorOpen", "minecraft-door-open.mp3")
+        this.load.audio("doorClose", "minecraft-door-close.mp3")
 
     }
     
 
     create() {
-        this.scene.start("roomOneScene");
+        //this.scene.start("roomOneScene");
+        this.scene.start("roomTwoScene");
+        //this.scene.start("roomThreeScene");
+        //this.scene.start("roomFourScene");
+        //this.scene.start("roomFivecene");
+        //this.scene.start("roomSixScene");
+
 
         this.anims.create({
             key: 'walk',
