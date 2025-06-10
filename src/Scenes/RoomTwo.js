@@ -31,9 +31,68 @@ class RoomTwo extends Phaser.Scene {
         this.aKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
         this.sKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
         this.dKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
+
+        // Add player sprite
+        my.sprite.player = this.physics.add.sprite(260, 190, "platformer_characters", "tile_0006.png");
+        my.sprite.player.setScale(0.8);
+        my.sprite.player.body.setCollideWorldBounds(true);
+
+        // Collide player with wall layer
+        this.physics.add.collider(my.sprite.player, this.wall);
+
+        // Camera
+        this.cameras.main.setZoom(this.SCALE);
+        this.cameras.main.startFollow(my.sprite.player);
+
+        this.physics.add.collider(my.sprite.player, this.decorations, this.handleDoorCollision, null, this);
+
     }
 
     update() {
+        const player = my.sprite.player;
 
+        // Set velocity
+        let velocityX = 0;
+        let velocityY = 0;
+
+        // Movement
+        if (this.wKey.isDown) {
+            velocityY = -1;
+            player.anims.play('walk', true);
+            this.isMoving = true;
+        } else if (this.sKey.isDown) {
+            velocityY = 1;
+            player.anims.play('walk', true);
+            this.isMoving = true;
+        } else if(this.aKey.isDown) {
+            velocityX = -1;
+            player.resetFlip();
+            player.anims.play('walk', true);
+            this.isMoving = true;
+        } else if (this.dKey.isDown) {
+            velocityX = 1;
+            player.setFlip(true, false);
+            player.anims.play('walk', true);
+            this.isMoving = true;
+        }
+        else {
+            player.anims.play('idle');
+            this.isMoving = false;
+        }
+
+        // Movement sfx
+        if (this.isMoving) {
+            if (!my.sfx.walking.isPlaying) {
+                my.sfx.walking.play();
+            }
+        }
+        else {
+            if (my.sfx.walking.isPlaying) {
+                my.sfx.walking.stop();
+            }
+        }
+
+        const vec = new Phaser.Math.Vector2(velocityX, velocityY).normalize();
+        player.setVelocity(vec.x * this.ACCELERATION, vec.y * this.ACCELERATION);
     }
 }
