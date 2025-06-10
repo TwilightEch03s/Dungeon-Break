@@ -14,7 +14,7 @@ class Load extends Phaser.Scene {
         this.load.audio("walking", "walking_audio.mp3")
 
     }
-
+    
 
     create() {
         this.scene.start("roomOneScene");
