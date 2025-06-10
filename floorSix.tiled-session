@@ -1,0 +1,120 @@
+{
+    "activeFile": "floorSIx.tmx",
+    "expandedProjectPaths": [
+        "."
+    ],
+    "file.lastUsedOpenFilter": "All Files (*)",
+    "fileStates": {
+        "": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "floorFive.tmx": {
+            "scale": 1.01175,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 400.29651593773167,
+                "y": 399.80232270817896
+            }
+        },
+        "floorFive.tmx#tilemap_packed": {
+            "scaleInDock": 1
+        },
+        "floorFour.tmx": {
+            "scale": 1,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 294,
+                "y": 370.5
+            }
+        },
+        "floorFour.tmx#tilemap2_packed": {
+            "scaleInDock": 1
+        },
+        "floorFour.tmx#tilemap_packed": {
+            "scaleInDock": 1
+        },
+        "floorSIx.tmx": {
+            "scale": 1.01175,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 400.29651593773167,
+                "y": 399.80232270817896
+            }
+        },
+        "floorSIx.tmx#tilemap2_packed": {
+            "scaleInDock": 1
+        },
+        "floorSIx.tmx#tilemap_packed": {
+            "scaleInDock": 1
+        },
+        "floorTwo.tmj": {
+            "scale": 1.5,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 427.33333333333337,
+                "y": 435.66666666666663
+            }
+        },
+        "floorTwo.tmj#tilemap2_packed": {
+            "scaleInDock": 1
+        },
+        "floorTwo.tmj#tilemap_packed": {
+            "scaleInDock": 1
+        },
+        "floorTwo.tmx": {
+            "scale": 1.01175,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 400.79070916728443,
+                "y": 399.80232270817896
+            }
+        },
+        "floorTwo.tmx#tilemap2_packed": {
+            "scaleInDock": 1
+        },
+        "floorTwo.tmx#tilemap_packed": {
+            "scaleInDock": 1
+        },
+        "floorTwoClosed.tmj": {
+            "scale": 1.01175,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 400.29651593773167,
+                "y": 399.80232270817896
+            }
+        },
+        "floorTwoClosed.tmj#tilemap_packed": {
+            "scaleInDock": 1
+        },
+        "floorTwoClosed.tmx": {
+            "scale": 1.01175,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 400.29651593773167,
+                "y": 399.80232270817896
+            }
+        },
+        "floorTwoClosed.tmx#tilemap_packed": {
+            "scaleInDock": 1
+        }
+    },
+    "map.lastUsedFormat": "json",
+    "openFiles": [
+        "floorSIx.tmx",
+        "floorFive.tmx",
+        "floorFour.tmx",
+        "floorTwoClosed.tmx",
+        "floorTwo.tmx",
+        "floorTwoClosed.tmj"
+    ],
+    "project": "floorSix.tiled-project",
+    "recentFiles": [
+        "floorTwoClosed.tmj",
+        "floorTwo.tmx",
+        "floorTwoClosed.tmx",
+        "floorFour.tmx",
+        "floorFive.tmx",
+        "floorSIx.tmx"
+    ]
+}
