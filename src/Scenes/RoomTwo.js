@@ -13,8 +13,9 @@ class RoomTwo extends Phaser.Scene {
 
     create() {  
         // Load tilemap
+        this.cameras.main.fadeIn(500, 0, 0, 0);
         this.map = this.make.tilemap({ key: "map2" });
-        const tileset = this.map.addTilesetImage("tilemap_pack", "tilemap_tiles");
+        const tileset = this.map.addTilesetImage("tilemap_packed", "tilemap_tiles");
 
         // Add layers
         this.ground = this.map.createLayer("Ground", tileset, 0, 0);

@@ -103,7 +103,7 @@ class RoomOne extends Phaser.Scene {
             this.transitioning = true;
             this.sound.stopAll();
             this.cameras.main.fadeOut(500, 0, 0, 0); 
-            this.cameras.main.once(500, () => {
+            this.cameras.main.once('camerafadeoutcomplete', () => {
                 this.scene.start("roomTwoScene");
             });
         }
