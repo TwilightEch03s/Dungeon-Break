@@ -9,6 +9,7 @@ class Load extends Phaser.Scene {
 
         this.load.image("tilemap_tiles", "tilemap_packed.png");
         this.load.tilemapTiledJSON("map", "floorOne.json");
+        this.load.tilemapTiledJSON("map2", "floorTwo.json");
 
         // Audio
         this.load.audio("walking", "walking_audio.mp3")
