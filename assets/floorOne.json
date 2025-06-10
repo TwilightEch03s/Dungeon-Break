@@ -2214,6 +2214,33 @@
                         }]
                 }, 
                 {
+                 "id":301,
+                 "properties":[
+                        {
+                         "name":"door",
+                         "type":"bool",
+                         "value":true
+                        }]
+                }, 
+                {
+                 "id":302,
+                 "properties":[
+                        {
+                         "name":"door",
+                         "type":"bool",
+                         "value":true
+                        }]
+                }, 
+                {
+                 "id":303,
+                 "properties":[
+                        {
+                         "name":"door",
+                         "type":"bool",
+                         "value":true
+                        }]
+                }, 
+                {
                  "id":318,
                  "properties":[
                         {
@@ -2268,6 +2295,33 @@
                         }]
                 }, 
                 {
+                 "id":329,
+                 "properties":[
+                        {
+                         "name":"door",
+                         "type":"bool",
+                         "value":true
+                        }]
+                }, 
+                {
+                 "id":330,
+                 "properties":[
+                        {
+                         "name":"door",
+                         "type":"bool",
+                         "value":true
+                        }]
+                }, 
+                {
+                 "id":331,
+                 "properties":[
+                        {
+                         "name":"door",
+                         "type":"bool",
+                         "value":true
+                        }]
+                }, 
+                {
                  "id":346,
                  "properties":[
                         {
@@ -2317,6 +2371,33 @@
                  "properties":[
                         {
                          "name":"collides",
+                         "type":"bool",
+                         "value":true
+                        }]
+                }, 
+                {
+                 "id":357,
+                 "properties":[
+                        {
+                         "name":"door",
+                         "type":"bool",
+                         "value":true
+                        }]
+                }, 
+                {
+                 "id":358,
+                 "properties":[
+                        {
+                         "name":"door",
+                         "type":"bool",
+                         "value":true
+                        }]
+                }, 
+                {
+                 "id":359,
+                 "properties":[
+                        {
+                         "name":"door",
                          "type":"bool",
                          "value":true
                         }]

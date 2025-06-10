@@ -18,7 +18,7 @@ let config = {
     fps: {forceSetTimeOut: true, target: 60},
     width: 800,
     height: 800,
-    scene: [Load, RoomOne, RoomThree, RoomFour, RoomFive, RoomSix]
+    scene: [Load, RoomOne, RoomTwo, RoomThree, RoomFour, RoomFive, RoomSix]
 
 }
 
