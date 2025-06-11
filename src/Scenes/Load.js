@@ -22,13 +22,13 @@ class Load extends Phaser.Scene {
 
 
         this.load.spritesheet("tilemap_sheet", "tilemap_packed.png", {
-            frameWidth: 18,
-            frameHeight: 18
+            frameWidth: 17,
+            frameHeight: 17
         });
 
         this.load.spritesheet("tilemap_sheet2", "tilemap2_packed.png", {
-            frameWidth: 18,
-            frameHeight: 18
+            frameWidth: 17,
+            frameHeight: 17
         });
 
         this.load.spritesheet("tilemap_sheet3", "tilemap3_packed.png", {
@@ -51,6 +51,8 @@ class Load extends Phaser.Scene {
         this.load.audio("fall", "fall.mp3")
         this.load.audio("rock", "rock.mp3")
 
+        this.load.audio("glass", "glass.mp3")
+        this.load.audio("cook", "cook.mp3")
 
     }
     
@@ -70,7 +72,7 @@ class Load extends Phaser.Scene {
         //this.scene.start("roomOneScene");
         //this.scene.start("roomTwoScene");
         //this.scene.start("roomThreeScene");
-        //this.scene.start("roomFourScene");
+        this.scene.start("roomFourScene");
         //this.scene.start("roomFivecene");
         //this.scene.start("roomSixScene");
 

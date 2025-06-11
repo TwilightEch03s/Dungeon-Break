@@ -9,6 +9,9 @@ class RoomFour extends Phaser.Scene {
         this.isMoving = false;
         this.transitioning = false;
         this.doorTriggered = false;
+        this.cookOn = false;
+        this.potOn = false;
+        this.exitOpen = false;
     }
 
     preload() {
@@ -34,6 +37,20 @@ class RoomFour extends Phaser.Scene {
         this.wall.setCollisionByProperty({ collides: true });
         this.decorations.setCollisionByProperty({ collides: true });
 
+        this.pot = this.map.createFromObjects("Objects", {
+            name: "pot",
+            key: "tilemap_sheet2",
+            frame: 16
+        });
+
+        this.physics.world.enable(this.pot, Phaser.Physics.Arcade.STATIC_BODY);
+        this.cook = this.map.createFromObjects("Objects", {
+            name: "cook",
+            key: "tilemap_sheet2",
+            frame: 404
+        });
+        this.physics.world.enable(this.cook, Phaser.Physics.Arcade.STATIC_BODY);
+
         // Input Setup
         this.wKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
         this.aKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
@@ -41,14 +58,41 @@ class RoomFour extends Phaser.Scene {
         this.dKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
 
         // Add player sprite
-        my.sprite.player = this.physics.add.sprite(712, 80, "platformer_characters", "tile_0006.png");
+        my.sprite.player = this.physics.add.sprite(392, 690, "platformer_characters", "tile_0006.png");
         my.sprite.player.setScale(0.8);
         my.sprite.player.body.setCollideWorldBounds(true);
 
+        //Guard
+        my.sprite.npc = this.add.sprite(400, 100, "platformer_characters", "tile_0009.png");
+        this.physics.add.existing(my.sprite.npc, true);
+        
         // Collide player with wall layer
+        this.physics.add.collider(my.sprite.player, my.sprite.npc);
         this.physics.add.collider(my.sprite.player, this.wall);
         this.physics.add.overlap(my.sprite.player, this.doors2, this.handleDoorOverlap, null, this);
         this.physics.add.collider(my.sprite.player, this.decorations);
+
+        // Object collisions
+        this.physics.add.overlap(my.sprite.player, this.pot, (player, pot) => {
+            if (!this.potOn) {
+                pot.setFrame(18);
+                this.potOn = true;
+                this.sound.play("glass");
+            }
+        });
+
+        this.physics.add.overlap(my.sprite.player, this.cook, (player, cook) => {
+            if (!this.cookOn) {
+                this.cookOn = true;
+                this.sound.play("cook", {
+                    volume: 0.5
+                });
+                this.ACCELERATION = 0;
+                this.time.delayedCall(3000, () => {
+                    this.ACCELERATION = 120;
+                });
+            }
+        });
 
         // Camera 
         this.cameras.main.setZoom(this.SCALE);
