@@ -45,6 +45,7 @@ class Load extends Phaser.Scene {
         this.load.audio("doorOpen", "minecraft-door-open.mp3")
         this.load.audio("doorClose", "minecraft-door-close.mp3")
         this.load.audio("keyObtain", "keyObtain.mp3")
+        this.load.audio("lever", "leverSFX.mp3")
 
         this.load.audio("music", "cave.mp3")
         this.load.audio("fall", "fall.mp3")
@@ -64,12 +65,12 @@ class Load extends Phaser.Scene {
 
         my.sfx.music.play();
     }
-        //this.scene.start("roomOneScene");
+        this.scene.start("roomOneScene");
         //this.scene.start("roomTwoScene");
         //this.scene.start("roomThreeScene");
         //this.scene.start("roomFourScene");
         //this.scene.start("roomFivecene");
-        this.scene.start("roomSixScene");
+        //this.scene.start("roomSixScene");
 
         // Walk animation
         this.anims.create({

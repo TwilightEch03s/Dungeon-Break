@@ -6,9 +6,12 @@ class RoomThree extends Phaser.Scene {
     init() {
         this.ACCELERATION = 120;
         this.SCALE = 3.0;
+        this.PARTICLE_VELOCITY = 50;
         this.isMoving = false;
         this.transitioning = false;
         this.doorTriggered = false;
+        this.leverOn = false;
+        this.exitOpen = false;
     }
 
     preload() {
@@ -30,11 +33,20 @@ class RoomThree extends Phaser.Scene {
         this.wall = this.map.createLayer("Wall", tilesets, 0, 0);
         this.cracks = this.map.createLayer("Cracked", tilesets, 0, 0);
         this.decorations = this.map.createLayer("Decorations", tilesets, 0, 0);
+        this.vault = this.map.createLayer("Vault", tilesets, 0, 0);
 
         // Enable collision on wall layer
         this.wall.setCollisionByProperty({ collides: true });
         this.cracks.setCollisionByProperty({ fall: true });
 
+        // Objects
+        this.lever = this.map.createFromObjects("Objects", {
+            name: "lever",
+            key: "tilemap_sheet3",
+            frame: 64
+        });
+        this.physics.world.enable(this.lever, Phaser.Physics.Arcade.STATIC_BODY);
+        
         // Input Setup
         this.wKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
         this.aKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
@@ -49,11 +61,44 @@ class RoomThree extends Phaser.Scene {
         // Collide player with wall layer
         this.physics.add.collider(my.sprite.player, this.wall);
 
+        // Object collisions
+        this.physics.add.overlap(my.sprite.player, this.lever, (player, lever) => {
+            if (!this.leverOn) {
+                lever.setFrame(66);
+                this.sound.play("lever", {
+                    volume: 1
+                });
+                this.leverOn = true;
+                this.exitOpen = true;
+                this.vault.forEachTile(tile => {
+                    if (tile.properties.collides) {
+                        tile.setCollision(false);
+                        tile.visible = false;
+                    }
+                });
+            }
+        });
+
         // Camera 
         this.cameras.main.setZoom(this.SCALE);
         this.cameras.main.startFollow(my.sprite.player);
 
         this.physics.add.collider(my.sprite.player, this.cracks, this.handleCrackCollsion, null, this);
+
+        // VFX
+        my.vfx.walking = this.add.particles(0, 0, "kenny-particles", {
+            frame: ['smoke_01.png', 'smoke_02.png'],
+            scale: {start: 0.02, end: 0.04},
+            random: true,
+            lifespan: 350,
+            maxAliveParticles: 6,
+            alpha: {start: 1, end: 0.1}, 
+            gravityY: -200,
+        });
+        my.vfx.walking.stop();
+
+        this.decorations.setCollisionByProperty({ exit: true });
+        this.physics.add.collider(my.sprite.player, this.decorations, this.handleDoorCollision, null, this);
     }
 
     update() {
@@ -68,23 +113,37 @@ class RoomThree extends Phaser.Scene {
             velocityY = -1;
             player.anims.play('walk', true);
             this.isMoving = true;
+            my.vfx.walking.startFollow(my.sprite.player, my.sprite.player.displayWidth/2-10, my.sprite.player.displayHeight/2-5, false);
+            my.vfx.walking.setParticleSpeed(this.PARTICLE_VELOCITY, 0);
+            my.vfx.walking.start();
         } else if (this.sKey.isDown) {
             velocityY = 1;
             player.anims.play('walk', true);
             this.isMoving = true;
-        } else if (this.aKey.isDown) {
+            my.vfx.walking.startFollow(my.sprite.player, my.sprite.player.displayWidth/2-10, my.sprite.player.displayHeight/2-5, false);
+            my.vfx.walking.setParticleSpeed(this.PARTICLE_VELOCITY, 0);
+            my.vfx.walking.start();
+        } else if(this.aKey.isDown) {
             velocityX = -1;
             player.resetFlip();
             player.anims.play('walk', true);
             this.isMoving = true;
+            my.vfx.walking.startFollow(my.sprite.player, my.sprite.player.displayWidth/2-10, my.sprite.player.displayHeight/2-5, false);
+            my.vfx.walking.setParticleSpeed(this.PARTICLE_VELOCITY, 0);
+            my.vfx.walking.start();
         } else if (this.dKey.isDown) {
             velocityX = 1;
             player.setFlip(true, false);
             player.anims.play('walk', true);
             this.isMoving = true;
-        } else {
+            my.vfx.walking.startFollow(my.sprite.player, my.sprite.player.displayWidth/2-10, my.sprite.player.displayHeight/2-5, false);
+            my.vfx.walking.setParticleSpeed(-this.PARTICLE_VELOCITY, 0);
+            my.vfx.walking.start();
+        }
+        else {
             player.anims.play('idle');
             this.isMoving = false;
+            my.vfx.walking.stop();
         }
 
         // Movement sfx
@@ -109,6 +168,16 @@ class RoomThree extends Phaser.Scene {
             this.cameras.main.fadeOut(300, 0, 0, 0); 
             this.cameras.main.once('camerafadeoutcomplete', () => {
                 this.scene.start("roomOneScene");
+            });
+        }
+    }
+
+    handleDoorCollision() {
+        if (!this.transitioning && this.exitOpen) {
+            this.transitioning = true;
+            this.cameras.main.fadeOut(500, 0, 0, 0); 
+            this.cameras.main.once('camerafadeoutcomplete', () => {
+                this.scene.start("roomFourScene");
             });
         }
     }
