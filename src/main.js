@@ -2,7 +2,7 @@
 
 let config = {
     parent: 'phaser-game',
-    type: Phaser.CANVAS,
+    type: Phaser.AUTO,
     render: {
         pixelArt: true
     },
@@ -19,7 +19,6 @@ let config = {
     width: 800,
     height: 800,
     scene: [Load, RoomOne, RoomTwo, RoomThree, RoomFour, RoomFive, RoomSix]
-
 }
 
 var my = {sprite: {}, text: {}, vfx: {}, sfx: {}};
