@@ -31,6 +31,10 @@ class Load extends Phaser.Scene {
             frameHeight: 18
         });
 
+        // Multiatlas was created using TexturePacker and the Kenny
+        // Particle Pack asset pack.
+        this.load.multiatlas("kenny-particles", "kenny-particles.json");
+
         this.load.spritesheet("tilemap_sheet3", "tilemap3_packed.png", {
             frameWidth: 18,
             frameHeight: 18
@@ -67,7 +71,7 @@ class Load extends Phaser.Scene {
         //this.scene.start("roomFivecene");
         //this.scene.start("roomSixScene");
 
-
+        // Walk animation
         this.anims.create({
             key: 'walk',
             frames: this.anims.generateFrameNames('platformer_characters', {
@@ -81,6 +85,7 @@ class Load extends Phaser.Scene {
             repeat: -1
         });
 
+        // Idle animation
         this.anims.create({
             key: 'idle',
             defaultTextureKey: "platformer_characters",
@@ -90,10 +95,12 @@ class Load extends Phaser.Scene {
             repeat: -1
         });
 
+        // Walk sfx
         my.sfx.walking = this.sound.add("walking", {
             loop: true,
             volume: 0.5
         });
+
     }
 
     update() {
