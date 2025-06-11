@@ -65,12 +65,12 @@ class Load extends Phaser.Scene {
 
         my.sfx.music.play();
     }
-        this.scene.start("roomOneScene");
+        //this.scene.start("roomOneScene");
         //this.scene.start("roomTwoScene");
         //this.scene.start("roomThreeScene");
         //this.scene.start("roomFourScene");
         //this.scene.start("roomFivecene");
-        //this.scene.start("roomSixScene");
+        this.scene.start("roomSixScene");
 
         // Walk animation
         this.anims.create({

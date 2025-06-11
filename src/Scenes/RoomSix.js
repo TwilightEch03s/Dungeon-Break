@@ -31,8 +31,9 @@ class RoomSix extends Phaser.Scene {
         this.decorations = this.map.createLayer("Decorations", tilesets, 0, 0);
 
         this.wall.setCollisionByProperty({ collides: true });
-        this.decorations.setCollisionByProperty({ doors2: true });
         this.wrong.setCollisionByProperty({ wrong: true });
+        this.decorations.setCollisionByProperty({ exit: true });
+
 
         // Input Setup
         this.wKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
@@ -41,7 +42,7 @@ class RoomSix extends Phaser.Scene {
         this.dKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
 
         // Add player sprite
-        my.sprite.player = this.physics.add.sprite(400, 700, "platformer_characters", "tile_0006.png");
+        my.sprite.player = this.physics.add.sprite(408, 690, "platformer_characters", "tile_0006.png");
         my.sprite.player.setScale(0.8);
         my.sprite.player.body.setCollideWorldBounds(true);
 
@@ -105,12 +106,11 @@ class RoomSix extends Phaser.Scene {
         const tileProps = tile.properties || {};
         if (tileProps.wrong && !this.transitioning) {
             this.transitioning = true;
-
-            player.setPosition(400, 700); 
-
-
+            // TODO: Add Sound
+            this.cameras.main.fadeOut(500, 0, 0, 0); 
             this.time.delayedCall(500, () => {
                 this.transitioning = false;
+                this.scene.start("roomFourScene");
             });
         }
 
@@ -122,7 +122,7 @@ class RoomSix extends Phaser.Scene {
             this.transitioning = true;
             this.cameras.main.fadeOut(500, 0, 0, 0); 
             this.cameras.main.once('camerafadeoutcomplete', () => {
-    //            this.scene.start("roomThreeScene");
+                // TODO: Winning Screen
             });
         }
     }
