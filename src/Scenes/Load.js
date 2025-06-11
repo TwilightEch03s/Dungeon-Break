@@ -14,6 +14,11 @@ class Load extends Phaser.Scene {
         
         this.load.tilemapTiledJSON("map", "floorOne.json");
         this.load.tilemapTiledJSON("map2", "floorTwo.json");
+        this.load.tilemapTiledJSON("map3", "floorThree.json");
+        this.load.tilemapTiledJSON("map4", "floorFour.json");
+        this.load.tilemapTiledJSON("map5", "floorFive.json");
+        this.load.tilemapTiledJSON("map6", "floorSix.json");
+
 
 
         this.load.spritesheet("tilemap_sheet", "tilemap_packed.png", {
@@ -53,8 +58,8 @@ class Load extends Phaser.Scene {
 
         my.sfx.music.play();
     }
-        //this.scene.start("roomOneScene");
-        this.scene.start("roomTwoScene");
+        this.scene.start("roomOneScene");
+        //this.scene.start("roomTwoScene");
         //this.scene.start("roomThreeScene");
         //this.scene.start("roomFourScene");
         //this.scene.start("roomFivecene");

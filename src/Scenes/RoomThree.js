@@ -18,7 +18,7 @@ class RoomThree extends Phaser.Scene {
     create() {
         // Load tilemap
         this.cameras.main.fadeIn(500, 0, 0, 0);
-        this.map = this.make.tilemap({ key: "map2" });
+        this.map = this.make.tilemap({ key: "map3" });
         const tileset1 = this.map.addTilesetImage("tilemap_packed", "tilemap_tiles");
         const tileset2 = this.map.addTilesetImage("tilemap2_packed", "tilemap_tiles2");
         const tileset3 = this.map.addTilesetImage("tilemap3_packed ", "tilemap_tiles3");
@@ -29,10 +29,6 @@ class RoomThree extends Phaser.Scene {
         this.ground = this.map.createLayer("Ground", tilesets, 0, 0);
         this.wall = this.map.createLayer("Wall", tilesets, 0, 0);
         this.decorations = this.map.createLayer("Decorations", tilesets, 0, 0);
-        this.doors1 = this.map.createLayer("Doors1", tilesets, 0, 0);
-        this.doors2 = this.map.createLayer("Doors2", tilesets, 0, 0);
-        this.keys = this.map.createLayer("Keys", tilesets, 0, 0);
-
 
         // Enable collision on wall layer
         this.wall.setCollisionByProperty({ collides: true });

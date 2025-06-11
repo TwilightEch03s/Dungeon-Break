@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="16" tileheight="16" infinite="0" nextlayerid="5" nextobjectid="1">
  <tileset firstgid="1" name="tilemap_packed" tilewidth="17" tileheight="17" tilecount="476" columns="28">
+  <properties>
+   <property name="exit" type="bool" value="true"/>
+  </properties>
   <image source="tilemap_packed.png" width="492" height="305"/>
   <tile id="0">
    <properties>
@@ -930,6 +933,11 @@
   <tile id="323">
    <properties>
     <property name="collides" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="330">
+   <properties>
+    <property name="exit" type="bool" value="true"/>
    </properties>
   </tile>
   <tile id="346">
@@ -2893,6 +2901,12 @@
  </tileset>
  <tileset firstgid="953" name="tilemap3_packed" tilewidth="18" tileheight="18" tilecount="180" columns="20">
   <image source="tilemap3_packed.png" width="360" height="162"/>
+  <tile id="151">
+   <animation>
+    <frame tileid="151" duration="100"/>
+    <frame tileid="152" duration="100"/>
+   </animation>
+  </tile>
  </tileset>
  <layer id="1" name="Ground" width="50" height="50">
   <data encoding="csv">

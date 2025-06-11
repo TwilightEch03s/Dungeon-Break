@@ -94,6 +94,9 @@ class RoomTwo extends Phaser.Scene {
             fontSize: '20px',
             fill: '#ffffff',
         }).setScrollFactor(0);
+
+        this.decorations.setCollisionByProperty({ exit: true });
+        this.physics.add.collider(my.sprite.player, this.decorations, this.handleDoorCollision, null, this);
     }
 
     update() {
@@ -181,5 +184,16 @@ class RoomTwo extends Phaser.Scene {
             my.text.keysObtained.setText("Keys: " + this.keysObtained);
         }
     }
+
+    handleDoorCollision() {
+        if (!this.transitioning) {
+            this.transitioning = true;
+            this.cameras.main.fadeOut(500, 0, 0, 0); 
+            this.cameras.main.once('camerafadeoutcomplete', () => {
+                this.scene.start("roomThreeScene");
+            });
+        }
+    }
+    
 
 }
