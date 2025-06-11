@@ -12,6 +12,7 @@ class RoomOne extends Phaser.Scene {
     }
     create() {        
         // Load tilemap
+        this.cameras.main.fadeIn(500, 0, 0, 0);
         this.map = this.make.tilemap({ key: "map" });
         const tileset = this.map.addTilesetImage("tilemap_pack", "tilemap_tiles");
 

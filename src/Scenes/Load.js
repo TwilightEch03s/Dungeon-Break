@@ -43,6 +43,8 @@ class Load extends Phaser.Scene {
         this.load.audio("keyObtain", "keyObtain.mp3")
 
         this.load.audio("music", "cave.mp3")
+        this.load.audio("fall", "fall.mp3")
+        this.load.audio("rock", "rock.mp3")
 
 
     }
@@ -58,9 +60,9 @@ class Load extends Phaser.Scene {
 
         my.sfx.music.play();
     }
-        this.scene.start("roomOneScene");
+        //this.scene.start("roomOneScene");
         //this.scene.start("roomTwoScene");
-        //this.scene.start("roomThreeScene");
+        this.scene.start("roomThreeScene");
         //this.scene.start("roomFourScene");
         //this.scene.start("roomFivecene");
         //this.scene.start("roomSixScene");
