@@ -9,6 +9,8 @@ class RoomTwo extends Phaser.Scene {
         this.isMoving = false;
         this.transitioning = false;
         this.doorTriggered = false;
+        this.vaultOpened = false;
+        this.keysObtained = 0;
     }
 
     preload() {
@@ -31,13 +33,23 @@ class RoomTwo extends Phaser.Scene {
         this.decorations = this.map.createLayer("Decorations", tilesets, 0, 0);
         this.doors1 = this.map.createLayer("Doors1", tilesets, 0, 0);
         this.doors2 = this.map.createLayer("Doors2", tilesets, 0, 0);
+        this.vault = this.map.createLayer("Vault", tilesets, 0, 0);
         this.keys = this.map.createLayer("Keys", tilesets, 0, 0);
 
 
         // Enable collision on wall layer
         this.wall.setCollisionByProperty({ collides: true });
-        this.decorations.setCollisionByProperty({ doors2: true });
+        this.vault.setCollisionByProperty({ collides: true });
 
+        // Objects
+        this.keys = this.map.createFromObjects("Objects", {
+            name: "Key",
+            key: "tilemap_sheet3",
+            frame: 27
+        });
+        this.physics.world.enable(this.keys, Phaser.Physics.Arcade.STATIC_BODY);
+        this.keyGroup = this.add.group(this.keys);
+        
         // Input Setup
         this.wKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
         this.aKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
@@ -51,12 +63,37 @@ class RoomTwo extends Phaser.Scene {
 
         // Collide player with wall layer
         this.physics.add.collider(my.sprite.player, this.wall);
+        this.physics.add.collider(my.sprite.player, this.vault);
         this.physics.add.overlap(my.sprite.player, this.doors2, this.handleDoorOverlap, null, this);
-        this.physics.add.collider(my.sprite.player, this.decorations);
+
+        // Vault Collisions
+        // Make trigger zone at vault
+        const vaultTriggerObj = this.map.findObject("Triggers", obj => obj.name === "VaultTrigger");
+        this.vaultTrigger = this.add.zone(vaultTriggerObj.x, vaultTriggerObj.y, vaultTriggerObj.width, vaultTriggerObj.height);
+        this.physics.world.enable(this.vaultTrigger);
+        this.vaultTrigger.body.setAllowGravity(false);
+        this.vaultTrigger.body.setImmovable(true);
+        this.physics.add.overlap(my.sprite.player, this.vaultTrigger, this.openVault, null, this);
+
+        // Object collisions
+        this.physics.add.overlap(my.sprite.player, this.keyGroup, (player, key) => {
+            key.destroy(); // remove key on overlap
+            this.sound.play("keyObtain", {
+                volume: 1
+            });
+            this.keysObtained++;
+            my.text.keysObtained.setText("Keys: " + this.keysObtained);
+        });
 
         // Camera 
         this.cameras.main.setZoom(this.SCALE);
         this.cameras.main.startFollow(my.sprite.player);
+
+        // UI elements
+        my.text.keysObtained = this.add.text(275, 270, "Keys: " + this.keysObtained, {
+            fontSize: '20px',
+            fill: '#ffffff',
+        }).setScrollFactor(0);
     }
 
     update() {
@@ -125,6 +162,23 @@ class RoomTwo extends Phaser.Scene {
                 this.transitioning = false;
                 this.doorTriggered = false;
             });
+        }
+    }
+
+    openVault(player, trigger) {
+        if (this.keysObtained > 0 && !this.vaultOpened) {
+            this.vaultOpened = true;
+    
+            this.vault.forEachTile(tile => {
+                if (tile.properties.collides) {
+                    tile.setCollision(false);
+                    tile.visible = false;
+                }
+            });
+    
+            this.sound.play("doorOpen");
+            this.keysObtained--;
+            my.text.keysObtained.setText("Keys: " + this.keysObtained);
         }
     }
 
