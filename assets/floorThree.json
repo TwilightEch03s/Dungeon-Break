@@ -302,13 +302,36 @@
          "name":"Vault",
          "opacity":1,
          "type":"tilelayer",
-         "visible":true,
+         "visible":false,
          "width":50,
          "x":0,
          "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "id":9,
+         "name":"Objects",
+         "objects":[
+                {
+                 "gid":541,
+                 "height":18,
+                 "id":1,
+                 "name":"lever",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":18,
+                 "x":447.352738709869,
+                 "y":559.115720135303
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
         }],
- "nextlayerid":7,
- "nextobjectid":1,
+ "nextlayerid":10,
+ "nextobjectid":2,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.11.2",
@@ -2218,7 +2241,7 @@
                         {
                          "name":"exit",
                          "type":"bool",
-                         "value":false
+                         "value":true
                         }]
                 }, 
                 {
@@ -2227,7 +2250,7 @@
                         {
                          "name":"exit",
                          "type":"bool",
-                         "value":false
+                         "value":true
                         }]
                 }, 
                 {
@@ -2236,7 +2259,7 @@
                         {
                          "name":"exit",
                          "type":"bool",
-                         "value":false
+                         "value":true
                         }]
                 }, 
                 {
