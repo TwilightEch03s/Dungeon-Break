@@ -19,6 +19,7 @@ class Title extends Phaser.Scene {
             color: '#FFFFFF'
         }).setOrigin(0.5);
 
+        // Play button
         my.text.play = this.add.text(game.config.width/2, 450, "Play", {
             fontFamily: 'Times, serif',
             fontSize: 20,
@@ -34,6 +35,24 @@ class Title extends Phaser.Scene {
         });
         my.text.play.on('pointerout', () => {
             my.text.play.setStyle({ fill: '#FFFF00' });
+        });
+
+        // Credits button
+        my.text.credits = this.add.text(game.config.width/2, 510, "Credits", {
+            fontFamily: 'Times, serif',
+            fontSize: 20,
+            color: '#FFFFFF'
+        }).setOrigin(0.5).setInteractive({ useHandCursor: true });
+        
+        my.text.credits.on('pointerdown', () => {
+            this.scene.start("creditsScene");
+        });
+
+        my.text.credits.on('pointerover', () => {
+            my.text.credits.setStyle({ fill: '#808080' });
+        });
+        my.text.credits.on('pointerout', () => {
+            my.text.credits.setStyle({ fill: '#FFFFFF' });
         });
 
     }

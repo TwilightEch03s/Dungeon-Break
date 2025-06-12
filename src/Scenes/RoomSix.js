@@ -110,7 +110,7 @@ class RoomSix extends Phaser.Scene {
             this.cameras.main.fadeOut(500, 0, 0, 0); 
             this.time.delayedCall(500, () => {
                 this.transitioning = false;
-                this.scene.start("roomFourScene");
+                this.scene.start("roomFiveScene");
             });
         }
 
@@ -122,7 +122,7 @@ class RoomSix extends Phaser.Scene {
             this.transitioning = true;
             this.cameras.main.fadeOut(500, 0, 0, 0); 
             this.cameras.main.once('camerafadeoutcomplete', () => {
-                // TODO: Winning Screen
+                this.scene.start("endScene");
             });
         }
     }
