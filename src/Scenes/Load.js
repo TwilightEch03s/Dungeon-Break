@@ -75,6 +75,7 @@ class Load extends Phaser.Scene {
         this.scene.start("roomFourScene");
         //this.scene.start("roomFivecene");
         //this.scene.start("roomSixScene");
+        //this.scene.start("endScene");
 
         // Walk animation
         this.anims.create({

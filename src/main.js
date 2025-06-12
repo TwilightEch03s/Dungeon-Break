@@ -18,7 +18,7 @@ let config = {
     fps: {forceSetTimeOut: true, target: 60},
     width: 800,
     height: 800,
-    scene: [Load, Title, RoomOne, RoomTwo, RoomThree, RoomFour, RoomFive, RoomSix]
+    scene: [Load, Title, RoomOne, RoomTwo, RoomThree, RoomFour, RoomFive, RoomSix, End, Credits]
 }
 
 var my = {sprite: {}, text: {}, vfx: {}, sfx: {}};
