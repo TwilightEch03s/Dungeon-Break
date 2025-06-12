@@ -19,8 +19,6 @@ class Load extends Phaser.Scene {
         this.load.tilemapTiledJSON("map5", "floorFive.json");
         this.load.tilemapTiledJSON("map6", "floorSix.json");
 
-
-
         this.load.spritesheet("tilemap_sheet", "tilemap_packed.png", {
             frameWidth: 17,
             frameHeight: 17
@@ -72,7 +70,7 @@ class Load extends Phaser.Scene {
         //this.scene.start("roomOneScene");
         //this.scene.start("roomTwoScene");
         //this.scene.start("roomThreeScene");
-        this.scene.start("roomFourScene");
+        //this.scene.start("roomFourScene");
         //this.scene.start("roomFivecene");
         //this.scene.start("roomSixScene");
         //this.scene.start("endScene");
