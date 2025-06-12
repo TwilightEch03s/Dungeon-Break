@@ -130,8 +130,8 @@ class RoomSix extends Phaser.Scene {
     handleWrongTile(player, tile) {
         const tileProps = tile.properties || {};
         if (tileProps.wrong && !this.transitioning) {
+            this.sound.play("fall");
             this.transitioning = true;
-            // TODO: Add Sound
             this.cameras.main.fadeOut(500, 0, 0, 0); 
             this.time.delayedCall(500, () => {
                 this.transitioning = false;
