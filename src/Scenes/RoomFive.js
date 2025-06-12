@@ -145,7 +145,7 @@ class RoomFive extends Phaser.Scene {
         // Spark burst for interaction
         // Looping sparkle VFX for pot
         this.potVFX = this.add.particles(0, 0, "kenny-particles", {
-            frame: ['sparkle_01.png', 'sparkle_02.png'],  // Choose actual sparkle frame names
+            frame: ['spark_01.png', 'spark_02.png'],
             scale: { start: 0.05, end: 0.01 },
             alpha: { start: 1, end: 0 },
             lifespan: 1000,
@@ -157,7 +157,7 @@ class RoomFive extends Phaser.Scene {
 
         // Looping sparkle VFX for cook
         this.cookVFX = this.add.particles(0, 0, "kenny-particles", {
-            frame: ['sparkle_01.png', 'sparkle_02.png'],
+            frame: ['spark_01.png', 'spark_02.png'],
             scale: { start: 0.05, end: 0.01 },
             alpha: { start: 1, end: 0 },
             lifespan: 1000,

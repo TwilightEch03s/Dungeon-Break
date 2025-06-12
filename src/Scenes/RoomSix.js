@@ -9,12 +9,11 @@ class RoomSix extends Phaser.Scene {
         this.SCALE = 3.0;
         this.isMoving = false;
         this.transitioning = false;
-        this.doorTriggered = false;
+        this.PARTICLE_VELOCITY = 50;
     }
 
     preload() {
         this.load.scenePlugin('AnimatedTiles', './lib/AnimatedTiles.js', 'animatedTiles', 'animatedTiles');
-
     }
     create() {  
         
@@ -54,6 +53,17 @@ class RoomSix extends Phaser.Scene {
         this.cameras.main.setZoom(this.SCALE);
         this.cameras.main.startFollow(my.sprite.player);
 
+        // VFX
+            frame: ['smoke_01.png', 'smoke_02.png'],
+            scale: {start: 0.02, end: 0.04},
+            random: true,
+            lifespan: 350,
+            maxAliveParticles: 6,
+            alpha: {start: 1, end: 0.1}, 
+            gravityY: -200,
+        });
+        my.vfx.walking.stop();
+
     }
 
     update() {
@@ -68,23 +78,37 @@ class RoomSix extends Phaser.Scene {
             velocityY = -1;
             player.anims.play('walk', true);
             this.isMoving = true;
+            my.vfx.walking.startFollow(my.sprite.player, my.sprite.player.displayWidth/2-10, my.sprite.player.displayHeight/2-5, false);
+            my.vfx.walking.setParticleSpeed(this.PARTICLE_VELOCITY, 0);
+            my.vfx.walking.start();
         } else if (this.sKey.isDown) {
             velocityY = 1;
             player.anims.play('walk', true);
             this.isMoving = true;
-        } else if (this.aKey.isDown) {
+            my.vfx.walking.startFollow(my.sprite.player, my.sprite.player.displayWidth/2-10, my.sprite.player.displayHeight/2-5, false);
+            my.vfx.walking.setParticleSpeed(this.PARTICLE_VELOCITY, 0);
+            my.vfx.walking.start();
+        } else if(this.aKey.isDown) {
             velocityX = -1;
             player.resetFlip();
             player.anims.play('walk', true);
             this.isMoving = true;
+            my.vfx.walking.startFollow(my.sprite.player, my.sprite.player.displayWidth/2-10, my.sprite.player.displayHeight/2-5, false);
+            my.vfx.walking.setParticleSpeed(this.PARTICLE_VELOCITY, 0);
+            my.vfx.walking.start();
         } else if (this.dKey.isDown) {
             velocityX = 1;
             player.setFlip(true, false);
             player.anims.play('walk', true);
             this.isMoving = true;
-        } else {
+            my.vfx.walking.startFollow(my.sprite.player, my.sprite.player.displayWidth/2-10, my.sprite.player.displayHeight/2-5, false);
+            my.vfx.walking.setParticleSpeed(-this.PARTICLE_VELOCITY, 0);
+            my.vfx.walking.start();
+        }
+        else {
             player.anims.play('idle');
             this.isMoving = false;
+            my.vfx.walking.stop();
         }
 
         // Movement sfx

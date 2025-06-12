@@ -6,7 +6,7 @@ class RoomFour extends Phaser.Scene {
 
     init() {
         this.ACCELERATION = 120;
-        this.SCALE = 1.0;
+        this.SCALE = 3.0;
         this.PARTICLE_VELOCITY = 50;
         this.isMoving = false;
         this.transitioning = false;
@@ -21,11 +21,28 @@ class RoomFour extends Phaser.Scene {
         this.ground = this.map.createLayer("Ground", tileset, 0, 0);
         this.wall = this.map.createLayer("Wall", tileset, 0, 0);
         this.decorations = this.map.createLayer("Decorations", tileset, 0, 0);
+        
+        // Create cracked layers as a list
+        this.crackedLayers = [];
+        for (let i = 1; i <= 9; i++) {
+            const layer = this.map.createLayer(`Cracked${i}`, tileset, 0, 0);
+            // Set tile callback for all tiles in this layer (excluding empty tiles)
+            const tileIndexes = [];
+            layer.layer.data.forEach(row => {
+                row.forEach(tile => {
+                    if (tile && tile.index !== -1 && !tileIndexes.includes(tile.index)) {
+                        tileIndexes.push(tile.index);
+                    }
+                });
+            });
+
+            layer.setTileIndexCallback(tileIndexes, this.hideCrackedTile, this);
+            this.crackedLayers.push(layer);
+        }
 
         // Enable collision on wall layer
-        this.wall.setCollisionByProperty({ collides: true });
+        this.wall.setCollisionByProperty({ wall: true });
         this.decorations.setCollisionByProperty({ doors: true });
-
 
         // Input Setup
         this.wKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
@@ -40,6 +57,11 @@ class RoomFour extends Phaser.Scene {
 
         // Collide player with wall layer
         this.physics.add.collider(my.sprite.player, this.wall);
+
+        // Collide player with cracked layers
+        this.crackedLayers.forEach(layer => {
+            this.physics.add.overlap(my.sprite.player, layer);
+        });
 
         // Camera
         this.cameras.main.setZoom(this.SCALE);
@@ -58,7 +80,6 @@ class RoomFour extends Phaser.Scene {
             gravityY: -200,
         });
         my.vfx.walking.stop();
-
     }
 
 
@@ -121,6 +142,14 @@ class RoomFour extends Phaser.Scene {
 
         const vec = new Phaser.Math.Vector2(velocityX, velocityY).normalize();
         player.setVelocity(vec.x * this.ACCELERATION, vec.y * this.ACCELERATION);
+    }
+
+    hideCrackedTile(sprite, tile) {
+        tile.layer.tilemapLayer.removeTileAt(tile.x, tile.y);
+        this.sound.play("rock", {
+            volume: 0.1
+        });
+        return false;
     }
 
     handleDoorCollision() {
