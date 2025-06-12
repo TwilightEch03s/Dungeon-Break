@@ -54,6 +54,7 @@ class RoomSix extends Phaser.Scene {
         this.cameras.main.startFollow(my.sprite.player);
 
         // VFX
+        my.vfx.walking = this.add.particles(0, 0, "kenny-particles", {
             frame: ['smoke_01.png', 'smoke_02.png'],
             scale: {start: 0.02, end: 0.04},
             random: true,
