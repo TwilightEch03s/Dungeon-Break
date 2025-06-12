@@ -5,7 +5,7 @@ class RoomFour extends Phaser.Scene {
 
     init() {
         this.ACCELERATION = 120;
-        this.SCALE = 3.0;
+        this.SCALE = 2.0;
         this.PARTICLE_VELOCITY = 50;
         this.isMoving = false;
         this.transitioning = false;
@@ -40,12 +40,16 @@ class RoomFour extends Phaser.Scene {
         this.decorations.setCollisionByProperty({ collides: true });
         this.exit.setCollisionByProperty({ exit: true });
 
+        // Plant pot object
         this.pot = this.map.createFromObjects("Objects", {
             name: "pot",
             key: "tilemap_sheet2",
             frame: 16
         });
+        
+        this.potTile = this.map.worldToTileXY(this.pot[0].x, this.pot[0].y);
 
+        // Stove object
         this.physics.world.enable(this.pot, Phaser.Physics.Arcade.STATIC_BODY);
         this.cook = this.map.createFromObjects("Objects", {
             name: "cook",
@@ -54,7 +58,7 @@ class RoomFour extends Phaser.Scene {
         });
         this.physics.world.enable(this.cook, Phaser.Physics.Arcade.STATIC_BODY);
 
-        // Input Setup
+        // Input setup
         this.wKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
         this.aKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
         this.sKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
@@ -65,15 +69,17 @@ class RoomFour extends Phaser.Scene {
         my.sprite.player.setScale(0.8);
         my.sprite.player.body.setCollideWorldBounds(true);
 
-        //Guard
+        //Guards
         my.sprite.npc = this.add.sprite(385, 80, "platformer_characters", "tile_0009.png");
         my.sprite.npc2 = this.add.sprite(400, 80, "platformer_characters", "tile_0009.png");
+        
         this.physics.add.existing(my.sprite.npc, false);
         my.sprite.npc.body.setImmovable(true);
 
         this.physics.add.existing(my.sprite.npc2, false);
         my.sprite.npc2.body.setImmovable(true);
 
+        // Exit collision
         this.physics.add.collider(my.sprite.player, this.exit, this.handleDoorCollision, null, this);
 
         // Collide player with wall layer
@@ -89,6 +95,7 @@ class RoomFour extends Phaser.Scene {
                 pot.setFrame(18);
                 this.potOn = true;
                 this.sound.play("glass");
+                this.potVFX.stop();
                 const grid = this.layersToGrid([this.wall, this.decorations]);
                 const startTile = this.map.worldToTileXY(my.sprite.npc.x, my.sprite.npc.y);
                 const potTile = this.map.worldToTileXY(pot.x, pot.y);
@@ -100,7 +107,6 @@ class RoomFour extends Phaser.Scene {
             }
         });
 
-
         this.physics.add.overlap(my.sprite.player, this.cook, (player, cook) => {
             if (!this.cookOn) {
                 this.cookOn = true;
@@ -108,6 +114,7 @@ class RoomFour extends Phaser.Scene {
                     volume: 0.5
                 });
                 this.ACCELERATION = 0;
+                this.cookVFX.stop();
                 const grid = this.layersToGrid([this.wall, this.decorations]);
                 const startTile = this.map.worldToTileXY(my.sprite.npc2.x, my.sprite.npc2.y);
                 const cookTile = this.map.worldToTileXY(cook.x, cook.y);
@@ -135,11 +142,58 @@ class RoomFour extends Phaser.Scene {
         });
         my.vfx.walking.stop();
 
+        // Spark burst for interaction
+        // Looping sparkle VFX for pot
+        this.potVFX = this.add.particles(0, 0, "kenny-particles", {
+            frame: ['sparkle_01.png', 'sparkle_02.png'],  // Choose actual sparkle frame names
+            scale: { start: 0.05, end: 0.01 },
+            alpha: { start: 1, end: 0 },
+            lifespan: 1000,
+            frequency: 300,
+            quantity: 1,
+            speed: 10
+        });
+        this.potVFX.startFollow(this.pot[0], this.pot[0].width - 20, this.pot[0].height - 20, false);
+
+        // Looping sparkle VFX for cook
+        this.cookVFX = this.add.particles(0, 0, "kenny-particles", {
+            frame: ['sparkle_01.png', 'sparkle_02.png'],
+            scale: { start: 0.05, end: 0.01 },
+            alpha: { start: 1, end: 0 },
+            lifespan: 1000,
+            frequency: 300,
+            quantity: 1,
+            speed: 10
+        });
+        this.cookVFX.startFollow(this.cook[0], this.cook[0].width - 20, this.cook[0].height - 20, false);
+
+        // Guard walking particles
+        my.vfx.npcWalk = this.add.particles(0, 0, "kenny-particles", {
+            frame: ['smoke_01.png', 'smoke_02.png'],
+            scale: { start: 0.02, end: 0.05 },
+            random: true,
+            lifespan: 350,
+            maxAliveParticles: 6,
+            alpha: {start: 1, end: 0.1}, 
+            gravityY: -200,
+        });
+        my.vfx.npcWalk.stop();
+
+        my.vfx.npc2Walk = this.add.particles(0, 0, "kenny-particles", {
+            frame: ['smoke_01.png', 'smoke_02.png'],
+            scale: { start: 0.02, end: 0.05 },
+            random: true,
+            lifespan: 350,
+            maxAliveParticles: 6,
+            alpha: {start: 1, end: 0.1}, 
+            gravityY: -200,
+        });
+        my.vfx.npc2Walk.stop();
+
+
         // Camera 
         this.cameras.main.setZoom(this.SCALE);
         this.cameras.main.startFollow(my.sprite.player);
-
-        this.potTile = this.map.worldToTileXY(this.pot[0].x, this.pot[0].y);
     }
 
     update() {
@@ -202,6 +256,8 @@ class RoomFour extends Phaser.Scene {
         player.setVelocity(vec.x * this.ACCELERATION, vec.y * this.ACCELERATION);
     }
 
+
+    // Setting each layer as a grid
     layersToGrid(layers) {
         let grid = [];
         let rows = this.map.height;
@@ -228,25 +284,42 @@ class RoomFour extends Phaser.Scene {
         return grid;
     }
 
-
+    // Guards moving
     moveNPC(path, character) {
-        var tweens = [];
-        for(var i = 0; i < path.length-1; i++){
-            var ex = path[i+1].x;
-            var ey = path[i+1].y;
+        const emitter = character === my.sprite.npc ? my.vfx.npcWalk : my.vfx.npc2Walk;
+        emitter.startFollow(character, character.displayWidth / 2, character.displayHeight / 2, false);
+        emitter.start();
+        character.anims.play('npcWalk', true);
+
+        const tweens = [];
+
+        for (let i = 0; i < path.length - 1; i++) {
+            const ex = path[i + 1].x * this.map.tileWidth;
+            const ey = path[i + 1].y * this.map.tileHeight;
+
             tweens.push({
-                x: ex*this.map.tileWidth,
-                y: ey*this.map.tileHeight,
-                duration: 200
+                x: ex,
+                y: ey,
+                duration: 200,
+                ease: 'Linear'
             });
         }
+
         this.tweens.chain({
             targets: character,
-            tweens: tweens
+            tweens: tweens,
+            onComplete: () => {
+                emitter.stop();
+                if (character.body) {
+                    character.body.setVelocity(0, 0);
+                }
+                character.anims.stop();
+            }
         });
-
     }
 
+
+    // BFS Algorithm
     findPath(start, goal, grid) {
         const numRows = grid.length;
         const numCols = grid[0].length;
