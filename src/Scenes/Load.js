@@ -99,6 +99,20 @@ class Load extends Phaser.Scene {
             repeat: -1
         });
 
+        // Guard animation
+        this.anims.create({
+            key: 'npcWalk',
+            frames: this.anims.generateFrameNames('platformer_characters', {
+                prefix: "tile_",
+                start: 9,
+                end: 10,
+                suffix: ".png",
+                zeroPad: 4
+            }),
+            frameRate: 15,
+            repeat: -1
+        });
+
         // Walk sfx
         my.sfx.walking = this.sound.add("walking", {
             loop: true,
