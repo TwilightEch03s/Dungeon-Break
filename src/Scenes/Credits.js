@@ -26,7 +26,7 @@ class Credits extends Phaser.Scene {
             fontSize: 19,
         }).setOrigin(0.5);
 
-        my.text.creditsText4 = this.add.text(game.config.width/2, game.config.height/2 + 50, "Music Used: ", {
+        my.text.creditsText4 = this.add.text(game.config.width/2, game.config.height/2 + 50, "Music Used: Dark Cave theme from Pokemon Silver/Gold", {
             fontFamily: 'Times, serif',
             fontSize: 19,
         }).setOrigin(0.5);
